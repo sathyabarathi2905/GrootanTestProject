@@ -3,30 +3,28 @@ package com;
 import static org.testng.Assert.assertEquals;
 
 import java.awt.image.BufferedImage;
+import java.awt.image.DataBuffer;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.imageio.ImageIO;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.poi.ss.usermodel.ClientAnchor;
-import org.apache.poi.ss.usermodel.CreationHelper;
-import org.apache.poi.ss.usermodel.Drawing;
-import org.apache.poi.ss.usermodel.Picture;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 
 import ru.yandex.qatools.ashot.comparison.ImageDiff;
@@ -35,30 +33,28 @@ import ru.yandex.qatools.ashot.comparison.ImageDiffer;
 public class GrootanTest extends TestBase {
 	public WebDriver driver;
 
-	@BeforeTest
+	@BeforeSuite
 	public void InitializeDriver() {
-		driver = BrowserInitialize();
+		driver = browserInitialize();
 	}
 
-	@Test(priority=1)
+	@Test(priority = 1)
 	public void clickingAllSections1() throws IOException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, SecurityException, InterruptedException {
 
 		try {
 			result = "Pass";
 			ObjectRepository OR = new ObjectRepository(driver);
-			for (int j = 1; j <= 3; j++) {
-				OR.allSections(j).click();
-				screenshot1(driver, OR.allSections(j).getText());
+			for (int j = 1; j <= 7; j++) {
+				OR.section().get(j).click();
+				if (j == 4) {
+					WebDriverWait wait = new WebDriverWait(driver, 10);
+					wait.until(ExpectedConditions.visibilityOf(driver
+							.findElement(By.xpath("//*[@id=\"gatsby-focus-wrapper\"]/div/nav/div/ul/li[2]/a[5]"))));
+				}
+				screenshot1(driver, OR.section().get(j).getText());
 			}
-			OR.Button4().click();
-			screenshot1(driver, OR.Button4().getText());
-			driver.get("https://www.grootan.com/");
-			for (int j = 5; j <= 7; j++) {
-				OR.allSections(j).click();
-				screenshot1(driver, OR.allSections(j).getText());
-			}
-			assertEquals(new File(".\\TestOneFolder").list().length, OR.Buttons().size() + 1);
+			assertEquals(new File(".\\TestOneFolder").list().length, OR.totalSections().size() + 1);
 
 		} catch (AssertionError E) {
 			result = "Fail";
@@ -68,90 +64,71 @@ public class GrootanTest extends TestBase {
 		}.getClass().getEnclosingMethod().getName();
 		hm1.put("Testcase1", result);
 		hm2.put("Testcase1", Testcase1);
-		// System.out.println(hm1.get("Testcase1"));
-		// System.out.println(hm2.get("Testcase1"));
 	}
 
-	@Test(priority=2)
+	@Test(priority = 2)
 	public void clickingAllSections2() throws IOException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, SecurityException, InterruptedException {
 		try {
 			ObjectRepository OR = new ObjectRepository(driver);
-			for (int j = 1; j <= 3; j++) {
-				OR.allSections(j).click();
-				screenshot2(driver, OR.allSections(j).getText());
+			for (int j = 1; j <= 7; j++) {
+				OR.section().get(j).click();
+				if (j == 4) {
+					WebDriverWait wait = new WebDriverWait(driver, 10);
+					wait.until(ExpectedConditions.visibilityOf(driver
+							.findElement(By.xpath("//*[@id=\"gatsby-focus-wrapper\"]/div/nav/div/ul/li[2]/a[5]"))));
+				}
+				screenshot2(driver, OR.section().get(j).getText());
 			}
-			OR.Button4().click();
-			screenshot2(driver, OR.Button4().getText());
-			driver.get("https://www.grootan.com/");
-			for (int j = 5; j <= 7; j++) {
-				OR.allSections(j).click();
-				screenshot2(driver, OR.allSections(j).getText());
-			}
-			assertEquals(new File(".\\TestTwoFolder").list().length, OR.Buttons().size() + 1);
+			assertEquals(new File(".\\TestTwoFolder").list().length, OR.totalSections().size() + 1);
 
 		} catch (AssertionError E) {
 			result = "Fail";
 		}
-
+		
 		String Testcase2 = new Object() {
 		}.getClass().getEnclosingMethod().getName();
 		hm2.put("Testcase2", Testcase2);
-		hm1.put("Testcase2", result);
-		// System.out.println(hm1.get("Testcase2"));
-		// System.out.println(hm2.get("Testcase2"));
+		hm1.put("Testcase2", result);	
 	}
-
-	@Test(priority=3)
+	@Test(priority = 3)
 	public void comparingAllSections() throws IOException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, SecurityException, InterruptedException {
-		int j = 1;
-		for (int i = 1; i <= 7; i++) {
-			result1 = "Pass";
-			if (i != 4) {
-				try {
-					ObjectRepository OR = new ObjectRepository(driver);
-					ImageDiffer imgDiff = new ImageDiffer();
-					BufferedImage image1 = ImageIO.read(new File(System.getProperty("user.dir") + "\\TestOneFolder\\"
-							+ OR.allSections(j).getText() + ".png"));
-					BufferedImage image2 = ImageIO.read(new File(System.getProperty("user.dir") + "\\TestTwoFolder\\"
-							+ OR.allSections(j).getText() + ".png"));
-					ImageDiff diff = imgDiff.makeDiff(image1, image2);
-
-					assertEquals(diff.hasDiff(), false);
-
-				} catch (AssertionError E) {
-					result1 = "Fail";
-				}
-			}
-		}
-		try {
-			result2 = "Pass";
-			ImageDiffer imgDiff = new ImageDiffer();
-			BufferedImage image1 = ImageIO.read(new File(System.getProperty("user.dir") + "\\TestOneFolder\\Blog.png"));
-			BufferedImage image2 = ImageIO.read(new File(System.getProperty("user.dir") + "\\TestTwoFolder\\Blog.png"));
-			ImageDiff diff = imgDiff.makeDiff(image1, image2);
-			assertEquals(diff.hasDiff(), false);
-
-		} catch (AssertionError E) {
-			result2 = "Fail";
-		}
-
-		if (result1.equalsIgnoreCase("Pass") && result2.equalsIgnoreCase("Pass")) {
+		for (int j = 1; j <= 7; j++) {
 			result = "Pass";
-		} else {
-			result = "Fail";
-		}
+			ObjectRepository OR = new ObjectRepository(driver);
+			try {
+		        BufferedImage biA = ImageIO.read(new File(System.getProperty("user.dir") + "\\TestOneFolder\\"
+						+ OR.section().get(j).getText() + ".png"));
+		        DataBuffer dbA = biA.getData().getDataBuffer();
+		        int sizeA = dbA.getSize();                      
+		        BufferedImage biB = ImageIO.read(new File(System.getProperty("user.dir") + "\\TestOneFolder\\"
+						+ OR.section().get(j).getText() + ".png"));
+		        DataBuffer dbB = biB.getData().getDataBuffer();
+		        int sizeB = dbB.getSize();
+		        if(sizeA == sizeB) {
+		            for(int i=0; i<sizeA; i++) { 
+		                if(dbA.getElem(i) != dbB.getElem(i)) {
+		                    result="Fail";
+		                }
+		            }
+		            result="Pass";
+		        }
+		        else {
+		        	result="Fail";
+		        }
+		    } 
+		    catch (Exception e) { 
+		        result="Fail";
+		    }
+			}
 		String Testcase3 = new Object() {
 		}.getClass().getEnclosingMethod().getName();
 		hm2.put("Testcase3", Testcase3);
 		hm1.put("Testcase3", result);
-		// System.out.println(hm1.get("Testcase3"));
-		// System.out.println(hm2.get("Testcase3"));
-
 	}
 
-	@Test(priority=5)
+	@Test(priority = 5)
 	public void juniorEngineersList() throws IOException {
 		try {
 			result = "Pass";
@@ -159,7 +136,7 @@ public class GrootanTest extends TestBase {
 			XSSFWorkbook wb = new XSSFWorkbook();
 			XSSFSheet sh1 = wb.createSheet("JuniorEngineers");
 			ObjectRepository OR = new ObjectRepository(driver);
-			OR.Button5().click();
+			OR.teamSection().click();
 			for (int j = 0; j < OR.Juniors_name().size(); j++) {
 				sh1.createRow(j).createCell(0).setCellValue(OR.Juniors_name().get(j).getText());
 			}
@@ -177,21 +154,19 @@ public class GrootanTest extends TestBase {
 		}.getClass().getEnclosingMethod().getName();
 		hm1.put("Testcase4", result);
 		hm2.put("Testcase4", Testcase4);
-		// System.out.println(hm1.get("Testcase4"));
-		// System.out.println(hm2.get("Testcase4"));
 	}
 
-	@Test(priority=4)
+	@Test(priority = 4)
 	public void compareTwoPersonsimage() throws IOException, InterruptedException {
 		try {
 
 			result = "Pass";
 			ObjectRepository OR = new ObjectRepository(driver);
-			OR.Button5().click();
-			Thread.sleep(3000);
-			File CTO_Image = OR.CTO_xpath().getScreenshotAs(OutputType.FILE);
+			OR.teamSection().click();
+			
+			File CTO_Image = OR.imageOfCTO().getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(CTO_Image, new File(".\\ImageComparison\\CTO_Image.png"));
-			File HRManager_Image = OR.HRManager_xpath().getScreenshotAs(OutputType.FILE);
+			File HRManager_Image = OR.imageOfHRManager().getScreenshotAs(OutputType.FILE);
 			FileUtils.copyFile(HRManager_Image, new File(".\\ImageComparison\\HRManager_Image.png"));
 
 			ImageDiffer imgDiff = new ImageDiffer();
@@ -200,22 +175,16 @@ public class GrootanTest extends TestBase {
 			BufferedImage image2 = ImageIO
 					.read(new File(System.getProperty("user.dir") + "\\ImageComparison\\HRManager_Image.png"));
 			ImageDiff diff = imgDiff.makeDiff(image1, image2);
-
-			assertEquals(diff.hasDiff(), false);
-
+			assertEquals(diff.hasDiff(), true);
 		} catch (AssertionError E) {
 			result = "Fail";
 		}
-
 		String Testcase5 = new Object() {
 		}.getClass().getEnclosingMethod().getName();
 		hm1.put("Testcase5", result);
 		hm2.put("Testcase5", Testcase5);
-		// System.out.println(hm1.get("Testcase5"));
-		// System.out.println(hm2.get("Testcase5"));
 	}
-
-	@Test(priority=6)
+	@AfterTest
 	public void testResultsCreation() throws IOException {
 
 		FileInputStream fis = new FileInputStream(".\\Results\\TestResults.xlsx");
@@ -234,39 +203,17 @@ public class GrootanTest extends TestBase {
 				if (j == 0) {
 					XSSFCell cells = row2.createCell(j);
 					cells.setCellValue(hm2.get("Testcase" + i));
-
 				}
 				if (j == 1) {
 					XSSFCell cells = row2.createCell(j);
 					cells.setCellValue(hm1.get("Testcase" + i));
 				}
-				/*if (j==2)
-				{
-					InputStream inputStream = new FileInputStream(".\\ImageComparison\\CTO_Image.png");
-					   byte[] bytes = IOUtils.toByteArray(inputStream);
-					   int pictureIdx = wb.addPicture(bytes, Workbook.PICTURE_TYPE_PNG);
-					   inputStream.close();
-					   CreationHelper helper = wb.getCreationHelper();
-					   Drawing drawing = sh2.createDrawingPatriarch();
-					   ClientAnchor anchor = helper.createClientAnchor();
-					   anchor.setCol1(2); //Column B
-					   anchor.setRow1(1); //Row 3
-					   anchor.setCol2(3); //Column C
-					   anchor.setRow2(2); //Row 4
-					   Picture pict = drawing.createPicture(anchor, pictureIdx);
-					XSSFCell cells = row2.createCell(j);
-					
-				}*/
-
 			}
 		}
-		
 		FileOutputStream fos = new FileOutputStream(".\\Results\\TestResults.xlsx");
 		wb.write(fos);
 	}
-
-
-	@AfterTest
+	@AfterSuite
 	public void closebrowser() {
 		driver.quit();
 	}

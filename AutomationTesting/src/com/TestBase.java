@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -20,7 +21,7 @@ public class TestBase {
 	public HashMap<String, String> hm1 = new HashMap<String, String>();
 	public HashMap<String, String> hm2 = new HashMap<String, String>();
 
-	public WebDriver BrowserInitialize() {
+	public WebDriver browserInitialize() {
 		System.setProperty("webdriver.chromedriver.driver", "chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.get("https://www.grootan.com/");

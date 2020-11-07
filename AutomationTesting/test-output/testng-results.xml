@@ -1,45 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results skipped="0" failed="0" ignored="0" total="6" passed="6">
+<testng-results skipped="0" failed="0" ignored="0" total="5" passed="5">
   <reporter-output>
   </reporter-output>
-  <suite name="Default suite" duration-ms="207682" started-at="2020-11-03T17:07:07Z" finished-at="2020-11-03T17:10:35Z">
+  <suite name="Default suite" duration-ms="26381" started-at="2020-11-07T14:34:29Z" finished-at="2020-11-07T14:34:55Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="207682" started-at="2020-11-03T17:07:07Z" finished-at="2020-11-03T17:10:35Z">
-      <class name="com.GrootonTest">
-        <test-method status="PASS" signature="InitializeDriver()[pri:0, instance:com.GrootonTest@7cbd213e]" name="InitializeDriver" is-config="true" duration-ms="10625" started-at="2020-11-03T17:07:07Z" finished-at="2020-11-03T17:07:17Z">
+    <test name="Default test" duration-ms="26381" started-at="2020-11-07T14:34:29Z" finished-at="2020-11-07T14:34:55Z">
+      <class name="com.GrootanTest">
+        <test-method status="PASS" signature="InitializeDriver()[pri:0, instance:com.GrootanTest@64f6106c]" name="InitializeDriver" is-config="true" duration-ms="9326" started-at="2020-11-07T14:34:19Z" finished-at="2020-11-07T14:34:29Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- InitializeDriver -->
-        <test-method status="PASS" signature="clickingAllSections1()[pri:1, instance:com.GrootonTest@7cbd213e]" name="clickingAllSections1" duration-ms="14121" started-at="2020-11-03T17:07:18Z" finished-at="2020-11-03T17:07:32Z">
+        <test-method status="PASS" signature="clickingAllSections1()[pri:1, instance:com.GrootanTest@64f6106c]" name="clickingAllSections1" duration-ms="13433" started-at="2020-11-07T14:34:29Z" finished-at="2020-11-07T14:34:42Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- clickingAllSections1 -->
-        <test-method status="PASS" signature="clickingAllSections2()[pri:2, instance:com.GrootonTest@7cbd213e]" name="clickingAllSections2" duration-ms="167514" started-at="2020-11-03T17:07:32Z" finished-at="2020-11-03T17:10:19Z">
+        <test-method status="PASS" signature="clickingAllSections2()[pri:2, instance:com.GrootanTest@64f6106c]" name="clickingAllSections2" duration-ms="9500" started-at="2020-11-07T14:34:42Z" finished-at="2020-11-07T14:34:52Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- clickingAllSections2 -->
-        <test-method status="PASS" signature="comparingAllSections()[pri:3, instance:com.GrootonTest@7cbd213e]" name="comparingAllSections" duration-ms="9146" started-at="2020-11-03T17:10:19Z" finished-at="2020-11-03T17:10:28Z">
+        <test-method status="PASS" signature="comparingAllSections()[pri:3, instance:com.GrootanTest@64f6106c]" name="comparingAllSections" duration-ms="1395" started-at="2020-11-07T14:34:52Z" finished-at="2020-11-07T14:34:53Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- comparingAllSections -->
-        <test-method status="PASS" signature="compareTwoPersonsimage()[pri:4, instance:com.GrootonTest@7cbd213e]" name="compareTwoPersonsimage" duration-ms="3729" started-at="2020-11-03T17:10:28Z" finished-at="2020-11-03T17:10:32Z">
+        <test-method status="PASS" signature="compareTwoPersonsimage()[pri:4, instance:com.GrootanTest@64f6106c]" name="compareTwoPersonsimage" duration-ms="779" started-at="2020-11-07T14:34:53Z" finished-at="2020-11-07T14:34:54Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- compareTwoPersonsimage -->
-        <test-method status="PASS" signature="juniorEngineersList()[pri:5, instance:com.GrootonTest@7cbd213e]" name="juniorEngineersList" duration-ms="1381" started-at="2020-11-03T17:10:32Z" finished-at="2020-11-03T17:10:33Z">
+        <test-method status="PASS" signature="juniorEngineersList()[pri:5, instance:com.GrootanTest@64f6106c]" name="juniorEngineersList" duration-ms="1090" started-at="2020-11-07T14:34:54Z" finished-at="2020-11-07T14:34:55Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- juniorEngineersList -->
-        <test-method status="PASS" signature="testResultsCreation()[pri:6, instance:com.GrootonTest@7cbd213e]" name="testResultsCreation" duration-ms="216" started-at="2020-11-03T17:10:33Z" finished-at="2020-11-03T17:10:34Z">
+        <test-method status="PASS" signature="testResultsCreation()[pri:0, instance:com.GrootanTest@64f6106c]" name="testResultsCreation" is-config="true" duration-ms="137" started-at="2020-11-07T14:34:55Z" finished-at="2020-11-07T14:34:55Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testResultsCreation -->
-        <test-method status="PASS" signature="closebrowser()[pri:0, instance:com.GrootonTest@7cbd213e]" name="closebrowser" is-config="true" duration-ms="894" started-at="2020-11-03T17:10:34Z" finished-at="2020-11-03T17:10:35Z">
+        <test-method status="PASS" signature="closebrowser()[pri:0, instance:com.GrootanTest@64f6106c]" name="closebrowser" is-config="true" duration-ms="791" started-at="2020-11-07T14:34:55Z" finished-at="2020-11-07T14:34:56Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- closebrowser -->
-      </class> <!-- com.GrootonTest -->
+      </class> <!-- com.GrootanTest -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->
 </testng-results>

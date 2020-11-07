@@ -13,50 +13,41 @@ public class ObjectRepository {
 	{
 		this.driver=driver;
 	}
-	public WebElement allSections(int i)
-	{
-		By all_Sections= By.xpath("//body/div[@id='root']/div[1]/nav[1]/div[1]/ul[1]/li[2]/a["+i+"]");
-		return driver.findElement(all_Sections);
-	}
 	
-	By Blog= By.xpath("//a[contains(text(),'Blog')]");
-	public WebElement Button4()
+	By sections= By.tagName("a");
+	public List<WebElement> section()
 	{
-		return driver.findElement(Blog);
+		return driver.findElements(sections);
 	}
 	
 	By Team= By.xpath("//a[contains(text(),'Team')]");
-	public WebElement Button5()
+	public WebElement teamSection()
 	{
 		return driver.findElement(Team);
 	}
-	By buttons= By.xpath("//a[@class='st-root-link nav-link']");
-	public List<WebElement> Buttons()
+	
+	By TotalSections= By.xpath("//a[@class='st-root-link nav-link']");
+	public List<WebElement> totalSections()
 	{
-		return driver.findElements(buttons);
+		return driver.findElements(TotalSections);
 	}
 	
-	By Juniors= By.xpath("//h5[contains(text(),'Junior Engineer')]");
-	public List<WebElement> Juniors_Engineer()
-	{
-		return driver.findElements(Juniors);
-	}
 	By Juniorsname= By.xpath("//h5[contains(text(),'Junior Engineer')]//preceding-sibling::h3");
 	public List<WebElement> Juniors_name()
 	{
 		return driver.findElements(Juniorsname);
 	}
+	
 	By CTOxpath= By.xpath("//*[@id=\"root\"]/div/section[2]/div/div/div/div/div/div[1]/div[1]/img");
-	public WebElement CTO_xpath()
+	public WebElement imageOfCTO()
 	{
 		return driver.findElement(CTOxpath);
 	}
+	
 	By HRManagerXpath= By.xpath("//*[@id=\"root\"]/div/section[2]/div/div/div/div/div/div[1]/div[2]/img");
-	public WebElement HRManager_xpath()
+	public WebElement imageOfHRManager()
 	{
 		return driver.findElement(HRManagerXpath);
 	}
-	
-	
 	
 }
